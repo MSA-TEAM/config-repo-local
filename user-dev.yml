@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: USER
+  datasource:
+    type: org.apache.tomcat.jdbc.pool.DataSource
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://sport-saas-psql.cf37vedvxld3.ap-northeast-2.rds.amazonaws.com:5432/sportsaas?autoReconnect=true&useSSL=false
+    username: gms_svm
+    password: new1234!
+  jpa:
+    showSql: true
+    hibernate:
+      ddlAuto: none
+      namingStrategy: org.hibernate.cfg.ImprovedNamingStrategy
+      formatSql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        formatSql: true
+        id:
+          newGeneratorMappings: true
+  zipkin:
+    baseUrl: http://msa-trace.development.svc.cluster.local:9411
+  sleuth:
+    sampler:
+      percentage: 0.2
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://apireg-0.msa-apireg.development.svc.cluster.local:8761/eureka/,http://apireg-1.msa-apireg.development.svc.cluster.local:8761/eureka/
+  instance:
+    preferIpAddress: false
+    instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+    leaseRenewalIntervalInSeconds: 3
+    leaseExpirationDurationInSeconds: 5
+logging:
+  config: classpath:logback-ide.xml

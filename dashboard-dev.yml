@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: DASHBOARD
+turbine:
+  appConfig: USER,CLIENT
+  clusterNameExpression: "'default'"
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://apireg-0.msa-apireg.development.svc.cluster.local:8761/eureka/,http://apireg-1.msa-apireg.development.svc.cluster.local:8761/eureka/
+  instance:
+    preferIpAddress: false
+    instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+logging:
+  config: classpath:logback-dev.xml
