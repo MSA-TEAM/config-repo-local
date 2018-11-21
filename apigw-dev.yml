@@ -12,7 +12,7 @@ spring:
       max-file-size: 1024MB
       max-request-size: 1024MB
   zipkin:
-    baseUrl: http://msa-trace.development.svc.cluster.local:9411
+    baseUrl: http://loclhost:9411
   sleuth:
     sampler:
       percentage: 0.2
@@ -32,7 +32,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://apireg-0.msa-apireg.development.svc.cluster.local:8761/eureka/,http://apireg-1.msa-apireg.development.svc.cluster.local:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
   instance:
     preferIpAddress: true
     instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
@@ -46,7 +46,7 @@ security:
   oauth2:
     resource:
       id: GSP
-      loadBalanced: true
+      loadBalanced: false
       jwt:
         keyValue: -----BEGIN PUBLIC KEY-----
                   MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh/0vQBm/mJfc9d0IaQf8
@@ -58,4 +58,4 @@ security:
                   KQIDAQAB
                   -----END PUBLIC KEY-----
 logging:
-  config: classpath:log4j2-dev.xml
+  config: classpath:logback-ide.xml
